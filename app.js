@@ -1,4 +1,6 @@
 require('dotenv').config()
+//import { GLOBAL_LANGUAGE } from './config/global_data'
+    //let gl_lang = require('./config/global_data')
 const express = require('express'),
     morgan = require('morgan')
 
@@ -39,11 +41,11 @@ const buttons = Extra.markup(
     )
 )
 
-let LANG = ''
+
 
 //app.use(Telegraf.memorySession())
 bot.use(i18n.middleware())
-i18n.middleware(locale = 'ru')
+//i18n.middleware(locale = 'ru')
 
 
 bot.start(async (ctx) => {
@@ -69,12 +71,15 @@ function addBtnAction(id_btn) {
             case 'bE':
                 ctx.i18n.locale('en')
                 await ctx.reply(ctx.i18n.t('hello', {ctx}))
+                    //gl_lang = 'en'
                 break
             case 'bR':
                 ctx.i18n.locale('ru')
                 await ctx.reply(ctx.i18n.t('hello', {ctx}))
+                //gl_lang = 'ru'
                 break
             default:
+                //global.language = gl_lang
                 break
         }
     })}

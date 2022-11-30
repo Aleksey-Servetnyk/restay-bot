@@ -9,7 +9,7 @@ const app = express(),
 
 app.use(morgan('dev'))
 
-const {Telegraf, Markup, Extra} = require('telegraf')
+const {Telegraf, Markup, Extra, Stage, session} = require('telegraf')
 const TelegrafI18n = require('telegraf-i18n')
 const path = require("path");
 
@@ -24,6 +24,10 @@ const i18n = new TelegrafI18n({
 //i18n.loadLocale('en', {greeting: 'Hello!'})
 
 const bot = new Telegraf(process.env.BOT_TOKEN)
+//const FirstNameSceneGenerator = require('./scenes/FirstNameSceneGenerator')
+//const firstNameSceneGenerator = new FirstNameSceneGenerator()
+//const firstNameScene = firstNameSceneGenerator.FirstNameScene()
+//const stage = new Stage([firstNameScene])
 
 const i18n = new TelegrafI18n({
     useSession: false,
@@ -46,13 +50,19 @@ const buttons = Extra.markup(
 //app.use(Telegraf.memorySession())
 bot.use(i18n.middleware())
 //i18n.middleware(locale = 'ru')
-
+bot.use(session())
+//bot.use(stage.middleware())
 
 bot.start(async (ctx) => {
     //ctx.i18n.locale('ru')
     //await ctx.reply(ctx.i18n.t('hello', {ctx}))
-    await ctx.reply('Can you choose language?', buttons)
+    await ctx.reply('Can you choose your favorite language?', buttons)
 })
+/*
+bot.command('scenes', async (ctx) => {
+    ctx.scene.enter('firstNameScene')
+})
+*/
 bot.help((ctx) => ctx.reply('Send me a sticker'))
 bot.on('sticker', (ctx) => ctx.reply('👍'))
 bot.hears('hi', (ctx) => ctx.reply('Hey there'))

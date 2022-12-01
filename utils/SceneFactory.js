@@ -1,3 +1,17 @@
+/**
+ * I would like to share my enhancement of WizardScene mechanics, that allows for better code due to higher responsibility separation.
+ *
+ * List of issues:
+ *
+ * Allow complicated branching for scenes;
+ * Allow to 'await' scene ending to execute some code;
+ * Have a separate single place for branching code;
+ * Make scenes reusable in same/different scenarios;
+ * Allow defining scenes or steps in a separate files;
+ * Provide a better alternative to step switching than by stepIndex (which is not safe);
+ * How do we overcome all these issues? With a factory of course.
+ */
+
 import WizardScene from 'telegraf/scenes/wizard';
 
 const unwrapCallback = async (ctx, nextScene) => {
